@@ -1,64 +1,159 @@
 import 'package:flutter/material.dart';
+import 'package:stock_wave/screens/home.dart';
 import 'package:stock_wave/screens/analysis.dart';
+import 'package:stock_wave/screens/market.dart';
+import 'package:stock_wave/screens/nwes.dart';
+import 'package:stock_wave/screens/search.dart';
+import 'package:stock_wave/screens/watchlist.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const StockWaveApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class StockWaveApp extends StatefulWidget {
+  const StockWaveApp({super.key});
+  @override
+  State<StockWaveApp> createState() => StockWave();
+}
 
-  // This widget is the root of your application.
+class StockWave extends State<StockWaveApp> {
+  int currentIndex = 0;
+  final List<Widget> screens = [
+    const Home(),
+    const Market(),
+    const Nwes(),
+    const Search(),
+    const Analysis(),
+    const Watchlist(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        splashFactory: NoSplash.splashFactory,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Scaffold(
+        body: screens[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: const Color(0xFF0B0B0B),
+          selectedItemColor: Color(0xfffcba03),
+          unselectedItemColor: Colors.grey,
+          iconSize: 24,
+          selectedLabelStyle: const TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w500,
+          ),
+          unselectedLabelStyle: const TextStyle(fontSize: 11),
+          items: [
+            BottomNavigationBarItem(
+              label: "Home",
+              icon: const Icon(Icons.home_rounded),
+              activeIcon: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcba03).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Icon(Icons.home_rounded, color: Color(0xfffcba03)),
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Market",
+              icon: const Icon(Icons.show_chart),
+              activeIcon: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcba03).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Icon(Icons.show_chart, color: Color(0xfffcba03)),
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Search",
+              icon: const Icon(Icons.search),
+              activeIcon: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcba03).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Icon(Icons.search, color: Color(0xfffcba03)),
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "News",
+              icon: const Icon(Icons.article_outlined),
+              activeIcon: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcba03).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Icon(
+                  Icons.article_outlined,
+                  color: Color(0xfffcba03),
+                ),
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Analysis",
+              icon: const Icon(Icons.leaderboard_outlined),
+              activeIcon: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcba03).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Icon(
+                  Icons.leaderboard_outlined,
+                  color: Color(0xfffcba03),
+                ),
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Watchlist",
+              icon: const Icon(Icons.star_outline_rounded),
+              activeIcon: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcba03).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Icon(Icons.star_rounded, color: Color(0xfffcba03)),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: Analysis());
   }
 }
