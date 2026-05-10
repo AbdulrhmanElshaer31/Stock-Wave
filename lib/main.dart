@@ -21,7 +21,7 @@ class StockWave extends State<StockWaveApp> {
   final List<Widget> screens = [
     const Home(),
     const Market(),
-    const Nwes(),
+    const News(),
     const Search(),
     const Analysis(),
     const Watchlist(),
