@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Market extends StatefulWidget {
-  const Market({super.key});
+class News extends StatefulWidget {
+  const News({super.key});
 
   @override
-  State<Market> createState() => _MarketState();
+  State<News> createState() => _NewsState();
 }
 
-class _MarketState extends State<Market> {
+class _NewsState extends State<News> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +15,7 @@ class _MarketState extends State<Market> {
         backgroundColor: const Color(0xFF111111),
         elevation: 2,
         title: const Text(
-          "Market",
+          "News",
           style: TextStyle(
             color: Color(0xFFD4AF37),
             fontWeight: FontWeight.bold,
@@ -27,7 +27,7 @@ class _MarketState extends State<Market> {
         decoration: const BoxDecoration(color: Colors.black),
         child: const Center(
           child: Text(
-            "This is Market Page",
+            "This is Nwes Page",
             style: TextStyle(color: Colors.white),
           ),
         ),

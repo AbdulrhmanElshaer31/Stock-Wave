@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stock_wave/screens/home.dart';
 import 'package:stock_wave/screens/analysis.dart';
 import 'package:stock_wave/screens/market.dart';
-import 'package:stock_wave/screens/nwes.dart';
+import 'package:stock_wave/screens/news.dart';
 import 'package:stock_wave/screens/search.dart';
 import 'package:stock_wave/screens/watchlist.dart';
 
