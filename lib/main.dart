@@ -19,7 +19,7 @@ class StockWaveApp extends StatefulWidget {
 class StockWave extends State<StockWaveApp> {
   int currentIndex = 0;
   final List<Widget> screens = [
-    const Home(),
+    const HomePage(),
     const Market(),
     const News(),
     const Search(),
@@ -85,21 +85,7 @@ class StockWave extends State<StockWaveApp> {
                 child: const Icon(Icons.show_chart, color: Color(0xfffcba03)),
               ),
             ),
-            BottomNavigationBarItem(
-              label: "Search",
-              icon: const Icon(Icons.search),
-              activeIcon: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xfffcba03).withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Icon(Icons.search, color: Color(0xfffcba03)),
-              ),
-            ),
+
             BottomNavigationBarItem(
               label: "News",
               icon: const Icon(Icons.article_outlined),
@@ -116,6 +102,21 @@ class StockWave extends State<StockWaveApp> {
                   Icons.article_outlined,
                   color: Color(0xfffcba03),
                 ),
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Search",
+              icon: const Icon(Icons.search),
+              activeIcon: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcba03).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Icon(Icons.search, color: Color(0xfffcba03)),
               ),
             ),
             BottomNavigationBarItem(

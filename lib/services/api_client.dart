@@ -9,17 +9,20 @@ class ApiClient {
       final request = await http.get(
         Uri.parse('${ApiConstans.url}$endPoint&token=${ApiConstans.apiKey}'),
       );
+
       if (request.statusCode == 200) {
         final data = jsonDecode(request.body);
+        print('API Response: $data'); 
+
         return ApiResponse.success(data: data, statusCode: request.statusCode);
       } else {
         return ApiResponse.error(
-          error: "Faild To Load Data Please Try Again Later!",
+          error: 'Failed to load data',
           statusCode: request.statusCode,
         );
       }
     } catch (e) {
-      return ApiResponse.error(error: "Network Error: $e");
+      return ApiResponse.error(error: 'Network error');
     }
   }
 }

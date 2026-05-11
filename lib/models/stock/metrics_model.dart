@@ -16,13 +16,15 @@ class MetricsModel {
   });
 
   factory MetricsModel.fromJson(Map<String, dynamic> json) {
+    final metric = json['metric'] ?? json;
+
     return MetricsModel(
-      high: json['52WeekHigh'].toDouble() ?? 0,
-      low: json['52WeekLow'].toDouble() ?? 0,
-      marketCapitalization: json['marketCapitalization'].toDouble() ?? 0,
-      peNormalizedAnnual: json['peNormalizedAnnual'].toDouble() ?? 0,
-      epsNormalizedAnnual: json['epsNormalizedAnnual'].toDouble() ?? 0,
-      beta: json['beta'].toDouble(),
+      high: (metric['52WeekHigh'] ?? 0).toDouble(),
+      low: (metric['52WeekLow'] ?? 0).toDouble(),
+      marketCapitalization: (metric['marketCapitalization'] ?? 0).toDouble(),
+      peNormalizedAnnual: (metric['peNormalizedAnnual'] ?? 0).toDouble(),
+      epsNormalizedAnnual: (metric['epsNormalizedAnnual'] ?? 0).toDouble(),
+      beta: (metric['beta'] ?? 0).toDouble(),
     );
   }
 }
