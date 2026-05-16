@@ -11,8 +11,9 @@ import 'package:stock_wave/models/stock/recommendation_model.dart';
 
 class Analysis extends StatefulWidget {
   final String symbol;
+  final bool showBackButton;
 
-  const Analysis({super.key, this.symbol = 'AAPL'});
+  const Analysis({super.key, this.symbol = 'AAPL', this.showBackButton = true});
 
   @override
   State<Analysis> createState() => _AnalysisState();
@@ -33,7 +34,6 @@ class _AnalysisState extends State<Analysis> {
   bool _isLoading = true;
 
   static const Color gold = Color(0xFFC9A84C);
-  static const Color green = Color(0xFF00C853);
   static const Color red = Color(0xFFFF4B4B);
   static const Color cardDark = Color(0xFF141414);
   static const Color bgDark = Color(0xFF0F0F0F);
@@ -544,10 +544,13 @@ class _AnalysisState extends State<Analysis> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF111111),
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF888888)),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: widget.showBackButton
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back, color: Color(0xFF888888)),
+                onPressed: () => Navigator.pop(context),
+              )
+            : null,
+        automaticallyImplyLeading: widget.showBackButton,
         titleSpacing: 0,
         title: const Text(
           'Analysis',
@@ -768,11 +771,6 @@ class _AnalysisState extends State<Analysis> {
   }
 
   Widget _buildChartCard() {
-    double high = _quote?.highPriceOfTheDay ?? 0;
-    double low = _quote?.lowPriceOfTheDay ?? 0;
-    double open = _quote?.openPriceOfTheDay ?? 0;
-    double prevClose = _quote?.previousClosePrice ?? 0;
-
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -783,14 +781,6 @@ class _AnalysisState extends State<Analysis> {
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              _buildOHLCItem('H', high, green),
-              _buildOHLCItem('L', low, red),
-              _buildOHLCItem('O', open),
-              _buildOHLCItem('PC', prevClose),
-            ].map((w) => Expanded(child: w)).toList(),
-          ),
           const SizedBox(height: 20),
           SizedBox(
             height: 180,
@@ -832,7 +822,7 @@ class _AnalysisState extends State<Analysis> {
                       FlSpot(5, 4.5),
                     ],
                     isCurved: true,
-                    color: red,
+                    color: const Color(0xffE4B84C),
                     barWidth: 2,
                     dotData: const FlDotData(show: false),
                     belowBarData: BarAreaData(
@@ -841,7 +831,7 @@ class _AnalysisState extends State<Analysis> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          red.withValues(alpha: 0.15),
+                          const Color(0xffE4B84C).withOpacity(0.4),
                           Colors.transparent,
                         ],
                       ),
@@ -852,54 +842,8 @@ class _AnalysisState extends State<Analysis> {
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: ['1D', '1W', '1M', '3M', '1Y', 'ALL'].map((tf) {
-              bool selected = tf == '1M';
-              return Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  decoration: BoxDecoration(
-                    color: selected ? gold : Colors.transparent,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      tf,
-                      style: TextStyle(
-                        color: selected
-                            ? Colors.black
-                            : const Color(0xFF666666),
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildOHLCItem(String label, double value, [Color? color]) {
-    return Column(
-      children: [
-        Text(
-          '\$${value.toStringAsFixed(2)}',
-          style: TextStyle(
-            color: color ?? Colors.white,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(color: Color(0xFF888888), fontSize: 12),
-        ),
-      ],
     );
   }
 

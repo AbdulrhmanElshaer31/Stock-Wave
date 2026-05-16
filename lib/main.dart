@@ -23,7 +23,7 @@ class StockWave extends State<StockWaveApp> {
     const Market(),
     const News(),
     const Search(),
-    const Analysis(),
+    const Analysis(showBackButton: false),
     const Watchlist(),
   ];
 
